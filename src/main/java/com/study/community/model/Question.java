@@ -20,16 +20,16 @@ public class Question {
         this.title = title;
     }
 
-    public void setDescription(String desciption) {
-        this.description = desciption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setGmtCreate(Long gmt_create) {
-        this.gmtCreate = gmt_create;
+    public void setGmtCreate(Long gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
-    public void setGmtModified(Long gmt_modified) {
-        this.gmtModified = gmt_modified;
+    public void setGmtModified(Long gmtModified) {
+        this.gmtModified = gmtModified;
     }
 
     public void setTag(String tag) {
@@ -40,16 +40,16 @@ public class Question {
         this.creator = creator;
     }
 
-    public void setViewCount(Integer view_count) {
-        this.viewCount = view_count;
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
     }
 
-    public void setCommentCount(Integer comment_count) {
-        this.commentCount = comment_count;
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
     }
 
-    public void setLikeCount(Integer like_count) {
-        this.likeCount = like_count;
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
     }
 
     public Integer getId() {

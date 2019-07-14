@@ -1,6 +1,5 @@
 package com.study.community.provider;
 
-
 import com.alibaba.fastjson.JSON;
 import com.study.community.dto.AccessTokenDTO;
 import com.study.community.dto.GithubUser;
@@ -23,7 +22,6 @@ public class GithubProvider {
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
-//            System.out.println(string);
             String[] strings = string.split("&");
             String token = strings[0].split("=")[1];
             return token;

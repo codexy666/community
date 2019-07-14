@@ -7,6 +7,35 @@ public class User {
     private String token;
     private Long gmtCreate;
     private Long gmtModified;
+    private String avatarUrl;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public Long getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public Long getGmtModified() {
+        return gmtModified;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -32,27 +61,7 @@ public class User {
         this.gmtModified = gmtModified;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getAccountId() {
-        return accountId;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public Long getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public Long getGmtModified() {
-        return gmtModified;
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

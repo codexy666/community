@@ -4,6 +4,7 @@ public class GithubUser {
     private String name;
     private Long id;
     private String bio;
+    private String avatarUrl;
 
     public void setName(String name) {
         this.name = name;
@@ -17,6 +18,10 @@ public class GithubUser {
         this.bio = bio;
     }
 
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
     public String getName() {
         return name;
     }
@@ -27,5 +32,9 @@ public class GithubUser {
 
     public String getBio() {
         return bio;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 }

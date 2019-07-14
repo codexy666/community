@@ -1,6 +1,7 @@
 package com.study.community.dto;
 
 public class AccessTokenDTO {
+    //这里的变量名不能改！与请求服务的路径有关
     private String client_id;
     private String client_secret;
     private String code;
@@ -30,19 +31,15 @@ public class AccessTokenDTO {
     public String getClient_id() {
         return client_id;
     }
-
     public String getClient_secret() {
         return client_secret;
     }
-
     public String getCode() {
         return code;
     }
-
     public String getRedirect_uri() {
         return redirect_uri;
     }
-
     public String getState() {
         return state;
     }

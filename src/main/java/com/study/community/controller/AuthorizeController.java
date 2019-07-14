@@ -22,13 +22,13 @@ public class AuthorizeController {
     private GithubProvider githubProvider;
 
     @Value("${github.client.id}")
-    private String client_id;
+    private String clientId;
 
     @Value("${github.client.secret}")
-    private String client_secret;
+    private String clientSecret;
 
     @Value("${github.redirect.uri}")
-    private String redirect_uri;
+    private String redirectUri;
 
     @Autowired
     private UserMapper userMapper;
@@ -38,14 +38,15 @@ public class AuthorizeController {
                            @RequestParam(name = "state") String state,
                            HttpServletResponse response){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
-        accessTokenDTO.setClient_id(client_id);
-        accessTokenDTO.setClient_secret(client_secret);
+        accessTokenDTO.setClient_id(clientId);
+        accessTokenDTO.setClient_secret(clientSecret);
         accessTokenDTO.setCode(code);
-        accessTokenDTO.setRedirect_uri(redirect_uri);
+        accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setState(state);
         String access_token = githubProvider.getAccessToken(accessTokenDTO);
+        System.out.println("token: " + access_token);
         GithubUser githubUser = githubProvider.getUser(access_token);
-        System.out.println(githubUser.getName());
+        System.out.println("username: " + githubUser.getName() + "id:" + githubUser.getId());
         if(githubUser != null && githubUser.getId() != null){
             User user = new User();
             user.setAccountId(String.valueOf(githubUser.getId()));
@@ -54,6 +55,7 @@ public class AuthorizeController {
             user.setToken(token);
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatarUrl(githubUser.getAvatarUrl());
             userMapper.insert(user);
             response.addCookie(new Cookie("token", token));
             return "redirect:/";
