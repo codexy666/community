@@ -3,6 +3,7 @@ package com.study.community.mapper;
 import com.study.community.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -14,6 +15,16 @@ public interface QuestionMapper {
             "values(#{id}, #{title}, #{description}, #{gmtCreate}, #{gmtModified}, #{creator}, #{tag})")
     void create(Question question);
 
-    @Select("select * from question")
-    List<Question> loadQuestions();
+    //传非Bean是需要自己加映射
+    @Select("select * from question limit #{offset}, #{size}")
+    List<Question> loadQuestionsByPage(@Param(value = "offset") Integer offset, @Param(value = "size") Integer size);
+
+    @Select("select count(1) from question")
+    Integer countAll();
+
+    @Select("select * from question where creator = #{userId} limit #{offset}, #{size}")
+    List<Question> loadQuestionsByUserId(@Param(value = "userId") Integer userId, @Param(value = "offset") Integer offset, @Param(value = "size") Integer size);
+
+    @Select("select count(1) from question where creator = #{userId}")
+    Integer countByUserId(@Param(value = "userId") Integer userId);
 }

@@ -46,10 +46,10 @@ public class PublishController {
             model.addAttribute("error", "问题补充不能为空");
             return "publish";
         }
-//        if (tag == null || tag == "") {
-//            model.addAttribute("error", "标签不能为空");
-//            return "publish";
-//        }
+        if (tag == null || tag == "") {
+            model.addAttribute("error", "标签不能为空");
+            return "publish";
+        }
         User user = null;
         Cookie[] cookies = request.getCookies();
         if(cookies != null && cookies.length != 0) {
@@ -58,6 +58,7 @@ public class PublishController {
                     String token = cookie.getValue();
                     user = userMapper.findByToken(token);
                     if (user != null) {
+                        //登录信息显示
                         request.getSession().setAttribute("user", user);
                     }
                     break;

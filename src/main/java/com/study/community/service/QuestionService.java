@@ -1,5 +1,6 @@
 package com.study.community.service;
 
+import com.study.community.dto.PaginationDTO;
 import com.study.community.dto.QuestionDTO;
 import com.study.community.mapper.QuestionMapper;
 import com.study.community.mapper.UserMapper;
@@ -20,8 +21,19 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<QuestionDTO> loadQuestions(){
-        List<Question> questions = questionMapper.loadQuestions();
+    //分页查询
+    public PaginationDTO loadQuestions(Integer page, Integer size){
+        Integer totalCount = questionMapper.countAll();  //问题总数
+        int totalPage = (totalCount / size) + ((totalCount % size) == 0 ? 0 : 1);   //总页数
+        PaginationDTO paginationDTO = new PaginationDTO();  //存储问题导航栏信息的对象
+        //调整查询页
+        if(page < 1) page = 1;
+        if(page > totalPage) page = totalPage;
+        paginationDTO.init(totalPage, page); //初始化问题导航栏
+
+        //查询问题
+        Integer offset = size * (page - 1);
+        List<Question> questions = questionMapper.loadQuestionsByPage(offset, size);
         List<QuestionDTO> questionDTOs = new ArrayList<QuestionDTO>(questions.size());
         for(Question question : questions){
             QuestionDTO questionDTO = new QuestionDTO();
@@ -30,6 +42,32 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOs.add(questionDTO);
         }
-        return questionDTOs;
+        paginationDTO.setQuestionDTOs(questionDTOs);
+        return paginationDTO;
+    }
+
+    //根据creator查询
+    public PaginationDTO loadQuestions(Integer userId, Integer page, Integer size) {
+        Integer totalCount = questionMapper.countByUserId(userId);  //问题总数
+        int totalPage = (totalCount / size) + ((totalCount % size) == 0 ? 0 : 1);   //总页数
+        PaginationDTO paginationDTO = new PaginationDTO();  //存储问题导航栏信息的对象
+        //调整查询页
+        if(page < 1) page = 1;
+        if(page > totalPage) page = totalPage;
+        paginationDTO.init(totalPage, page); //初始化问题导航栏
+
+        //查询问题
+        Integer offset = size * (page - 1);
+        List<Question> questions = questionMapper.loadQuestionsByUserId(userId, offset, size);
+        List<QuestionDTO> questionDTOs = new ArrayList<QuestionDTO>(questions.size());
+        for(Question question : questions){
+            QuestionDTO questionDTO = new QuestionDTO();
+            User user = userMapper.findById(question.getCreator());
+            BeanUtils.copyProperties(question, questionDTO);
+            questionDTO.setUser(user);
+            questionDTOs.add(questionDTO);
+        }
+        paginationDTO.setQuestionDTOs(questionDTOs);
+        return paginationDTO;
     }
 }
