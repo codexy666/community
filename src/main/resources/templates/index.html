@@ -29,8 +29,9 @@
                 <span th:text="${question.description}"></span><br>
                 <span class="text-desc">
                     <span th:text="${question.commentCount}"></span> 个回复 ·
-                    <span th:text="${question.ViewCount}"></span> 个浏览 ·
-                    <span th:text="${#dates.format(question.gmtCreate, 'yyyy年MM月dd日')}"></span>
+                    <span th:text="${question.ViewCount}"></span> 个浏览 | 发布：
+                    <span th:text="${#dates.format(question.gmtCreate, 'yyyy年MM月dd日')}"></span> · 最近修改：
+                    <span th:text="${#dates.format(question.gmtModified, 'yyyy年MM月dd日')}"></span>
                 </span>
             </div>
             </div>

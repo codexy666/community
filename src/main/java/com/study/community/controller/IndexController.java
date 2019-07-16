@@ -23,6 +23,6 @@ public class IndexController {
         //加载问题列表
         PaginationDTO pagination = questionService.loadQuestions(page, size);
         model.addAttribute("pagination", pagination);
-        return "index";
+        return "index"; //返回跳转的哪个html路径
     }
 }
