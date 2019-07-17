@@ -19,7 +19,6 @@ public class IndexController {
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
                         @RequestParam(name = "size", defaultValue = "5") Integer size){
 
-
         //加载问题列表
         PaginationDTO pagination = questionService.loadQuestions(page, size);
         model.addAttribute("pagination", pagination);

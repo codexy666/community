@@ -1,6 +1,7 @@
 package com.study.community.exception;
 
 public class CustomizeException extends RuntimeException{
+
     private String message;
 
     public CustomizeException(ICustomizeErrorCode errorCode){

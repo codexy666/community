@@ -4,6 +4,7 @@ import com.study.community.dto.PaginationDTO;
 import com.study.community.dto.QuestionDTO;
 import com.study.community.exception.CustomizeErrorCode;
 import com.study.community.exception.CustomizeException;
+import com.study.community.mapper.QuestionExtMapper;
 import com.study.community.mapper.QuestionMapper;
 import com.study.community.mapper.UserMapper;
 import com.study.community.model.Question;
@@ -19,6 +20,9 @@ import java.util.List;
 
 @Service
 public class QuestionService {
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     @Autowired
     private QuestionMapper questionMapper;
@@ -60,7 +64,7 @@ public class QuestionService {
         if(question.getId() == null){   //发布问题时没有id的问题，因为主键自动增长
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
-            questionMapper.insert(question);
+            questionMapper.insertSelective(question);
         }else{  //编辑问题时因为id已经存在，更新问题
             Question questionUpdate = new Question();
             questionUpdate.setGmtModified(System.currentTimeMillis());
@@ -95,5 +99,12 @@ public class QuestionService {
         }
         paginationDTO.setQuestionDTOs(questionDTOs);
         return paginationDTO;
+    }
+
+    public void incView(Integer id) {
+        Question questionUpdate = new Question();
+        questionUpdate.setId(id);
+        questionUpdate.setViewCount(1);
+        questionExtMapper.incView(questionUpdate);
     }
 }
